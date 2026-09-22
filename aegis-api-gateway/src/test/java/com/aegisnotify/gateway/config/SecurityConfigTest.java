@@ -92,6 +92,36 @@ class SecurityConfigTest {
   }
 
   @Test
+  void listEndpoint_withoutNotificationReadScope_returns403WithRequiredScope() {
+    webTestClient.mutateWith(mockJwt().authorities(() -> "SCOPE_notification:write"))
+        .get().uri("/api/v1/notifications")
+        .exchange()
+        .expectStatus().isForbidden()
+        .expectBody()
+        .jsonPath("$.requiredScope").isEqualTo("notification:read");
+  }
+
+  @Test
+  void cancelEndpoint_withoutNotificationWriteScope_returns403WithRequiredScope() {
+    webTestClient.mutateWith(mockJwt().authorities(() -> "SCOPE_notification:read"))
+        .patch().uri("/api/v1/notifications/some-id/cancel")
+        .exchange()
+        .expectStatus().isForbidden()
+        .expectBody()
+        .jsonPath("$.requiredScope").isEqualTo("notification:write");
+  }
+
+  @Test
+  void retryEndpoint_withoutNotificationWriteScope_returns403WithRequiredScope() {
+    webTestClient.mutateWith(mockJwt().authorities(() -> "SCOPE_notification:read"))
+        .post().uri("/api/v1/notifications/some-id/retry")
+        .exchange()
+        .expectStatus().isForbidden()
+        .expectBody()
+        .jsonPath("$.requiredScope").isEqualTo("notification:write");
+  }
+
+  @Test
   void auditEndpoint_withoutAuditReadScope_returns403WithRequiredScope() {
     webTestClient.mutateWith(mockJwt().authorities(() -> "SCOPE_notification:read"))
         .get().uri("/api/v1/audit")
@@ -99,6 +129,32 @@ class SecurityConfigTest {
         .expectStatus().isForbidden()
         .expectBody()
         .jsonPath("$.requiredScope").isEqualTo("audit:read");
+  }
+
+  @Test
+  void auditEndpoint_withAuditReadScope_isNotForbidden() {
+    // Symmetric positive case for the existing audit 403 test. No live
+    // aegis-audit-service in this context (application-test.yml points at a closed
+    // port), so a correctly scoped request clears security and fails downstream at
+    // routing with a 5xx, proving it passed authorization, not 401/403.
+    webTestClient.mutateWith(mockJwt().authorities(() -> "SCOPE_audit:read"))
+        .get().uri("/api/v1/audit/notifications/some-id")
+        .exchange()
+        .expectStatus().is5xxServerError();
+  }
+
+  @Test
+  void auditEndpoint_withAuditReadScope_postDoesNotMatchAuditRoute() {
+    // RouteScopeRules gates /api/v1/audit/** on any method, so a POST with the
+    // audit:read scope clears security same as GET does. The audit-read route's
+    // Method=GET predicate must still exclude it: with no other route registered
+    // for this path, Spring Cloud Gateway finds no matching route and returns 404 -
+    // a different failure mode than the 5xx the GET pass-through test above expects,
+    // proving Method=GET actually restricts the verb rather than merely existing.
+    webTestClient.mutateWith(mockJwt().authorities(() -> "SCOPE_audit:read"))
+        .post().uri("/api/v1/audit/notifications/some-id")
+        .exchange()
+        .expectStatus().isNotFound();
   }
 
   @Test
