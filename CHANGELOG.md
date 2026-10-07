@@ -1,5 +1,109 @@
 # Changelog
 
+## [0.12.0](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.11.0...aegisnotify-v0.12.0) (2026-10-04)
+
+
+### Features
+
+* **dashboard:** live admin Dashboard with real backend data + reliability fixes ([2136b83](https://github.com/Exar-lab/AegisNotify/commit/2136b831b40f8c0342fb459d94add93947cc459e))
+* **frontend:** build the Dashboard screen wired to real backend data ([3162b78](https://github.com/Exar-lab/AegisNotify/commit/3162b783dbce99504c45f05d734372f4cbe3ce80))
+* **frontend:** integrate scaffold + Keycloak auth + theme + admin shell into main ([50f50bd](https://github.com/Exar-lab/AegisNotify/commit/50f50bd0922eea8068ea21faabdd79481fef00db))
+* **frontend:** set up Tailwind CSS and define brand/status color tokens ([35afa7a](https://github.com/Exar-lab/AegisNotify/commit/35afa7a809ffe4c20636c540b7cb2b58c5f0db9d))
+* **notification-service:** add dashboard summary aggregation endpoint ([7749aa9](https://github.com/Exar-lab/AegisNotify/commit/7749aa9218123fd9e2a735876d7277b0741c2514))
+* **notification:** implement DeadLetterQueuePort with Kafka DLQ adapter ([6b235ec](https://github.com/Exar-lab/AegisNotify/commit/6b235ec1d34ab72dbb430fcf77e1db682e2b6af3))
+* **notification:** implement DeadLetterQueuePort with Kafka DLQ adapter ([2c77113](https://github.com/Exar-lab/AegisNotify/commit/2c7711343ad717c25fa163d4c8c1808ee878793a)), closes [#30](https://github.com/Exar-lab/AegisNotify/issues/30)
+
+
+### Bug Fixes
+
+* **api-gateway:** don't crash the rate limiter key resolver on a null subject ([ef148c4](https://github.com/Exar-lab/AegisNotify/commit/ef148c4fada8c4f2de2e437263e3010b648f1f0a))
+* **api-gateway:** let Spring Security own CORS and permit preflight without auth ([35d112f](https://github.com/Exar-lab/AegisNotify/commit/35d112f5a4bf08c64174318f1f313e8aa32d636d))
+* **notification-service:** widen Kafka producer reconnect backoff ([6b1c232](https://github.com/Exar-lab/AegisNotify/commit/6b1c2329dbc2d60d8ca48b3e9166d63bda26da84))
+* **user-service:** mark KeycloakTokenProvider's production constructor @Autowired ([76d6f3b](https://github.com/Exar-lab/AegisNotify/commit/76d6f3b5979649538896483eec20cf496658318c))
+* **user-service:** mark KeycloakTokenProvider's production constructor @Autowired ([7e44ed3](https://github.com/Exar-lab/AegisNotify/commit/7e44ed391523ff0803516845020970222631986c))
+
+## [0.11.0](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.10.1...aegisnotify-v0.11.0) (2026-10-02)
+
+
+### Features
+
+* **docker:** add PostgreSQL service to docker-compose.full.yml ([92c708b](https://github.com/Exar-lab/AegisNotify/commit/92c708bf9085e89137dbd6849b07d9b94c730cc8))
+* **docker:** add PostgreSQL service to docker-compose.full.yml ([#122](https://github.com/Exar-lab/AegisNotify/issues/122)) ([92c708b](https://github.com/Exar-lab/AegisNotify/commit/92c708bf9085e89137dbd6849b07d9b94c730cc8))
+
+
+### Bug Fixes
+
+* **docker:** use postgres:16-alpine, env-driven credentials, and bind to localhost ([bd50dd7](https://github.com/Exar-lab/AegisNotify/commit/bd50dd78183c4156e0073edd4ec7f4c8bdf6f5b2))
+
+## [0.10.1](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.10.0...aegisnotify-v0.10.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **ci:** run frontend CI on PRs targeting any branch, not just main ([b2a2f7c](https://github.com/Exar-lab/AegisNotify/commit/b2a2f7c3ef13e1de48cde014f356275ed4e05d0b))
+* **ci:** run frontend CI on PRs targeting any branch, not just main ([1faf853](https://github.com/Exar-lab/AegisNotify/commit/1faf85318ab72c54174029c538d1faabd19f4553))
+
+## [0.10.0](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.9.0...aegisnotify-v0.10.0) (2026-09-22)
+
+
+### Features
+
+* **frontend:** scaffold Angular admin frontend project ([23c841a](https://github.com/Exar-lab/AegisNotify/commit/23c841a3930ddd0e9c6970605f32c690daf736a9))
+
+
+### Bug Fixes
+
+* **ci:** add cache-dependency-path for pnpm lockfile in subdirectory ([232e3aa](https://github.com/Exar-lab/AegisNotify/commit/232e3aaef2ca68c05f7a755c5f468d6e323d8da1))
+* **ci:** add pnpm.onlyBuiltDependencies to allow build scripts ([4009047](https://github.com/Exar-lab/AegisNotify/commit/40090478731e98599d50a74c6e9c14438e4b2808))
+* **ci:** move onlyBuiltDependencies to .npmrc for pnpm v11 ([fa49e14](https://github.com/Exar-lab/AegisNotify/commit/fa49e1456711e796accc75fb3c4620e5e96a3f4b))
+* **ci:** pin claude-code-action to last known-good SHA ([714a0ba](https://github.com/Exar-lab/AegisNotify/commit/714a0bae3b40fba0be2af495d1372d2a94a7282b))
+* **ci:** pin claude-code-action to last known-good SHA (v1.0.228) ([aaf01ad](https://github.com/Exar-lab/AegisNotify/commit/aaf01ad22a6af6d203958cada3a974aab5d9d691))
+* **ci:** run frontend tests via test:ci script without pnpm arg passthrough ([d749bd4](https://github.com/Exar-lab/AegisNotify/commit/d749bd49c5e453feb69017a1924709027bb4d557))
+* **ci:** unblock CI Frontend install and test steps ([058644e](https://github.com/Exar-lab/AegisNotify/commit/058644eacb4359d3d7f08fff2db01dd01dd3790c))
+* **ci:** use pnpm-workspace.yaml allowBuilds instead of .npmrc ([accbc9e](https://github.com/Exar-lab/AegisNotify/commit/accbc9e4f8904d89d8cf300c69e332e781ca0da8))
+
+## [0.9.0](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.8.3...aegisnotify-v0.9.0) (2026-09-17)
+
+
+### Features
+
+* **gateway:** add audit-service routes and rate limiting ([#37](https://github.com/Exar-lab/AegisNotify/issues/37)) ([d34b45b](https://github.com/Exar-lab/AegisNotify/commit/d34b45bce5a346ac29b60320476ba8fae1f5df06))
+
+
+### Bug Fixes
+
+* **ci:** skip claude-review on fork PRs again ([70646a8](https://github.com/Exar-lab/AegisNotify/commit/70646a84d2f4a96b1c50770665d49ace145a30a9))
+* **ci:** skip claude-review on fork PRs again ([91a63c3](https://github.com/Exar-lab/AegisNotify/commit/91a63c3ff0ba7dbf4889aa726dbb5fbf6ec0bb50))
+* **gateway:** define RateLimiterIntegrationTest's route as one self-contained source ([ee44ed9](https://github.com/Exar-lab/AegisNotify/commit/ee44ed9c71ff5af40bf928f669705363a51276cd))
+
+## [0.8.3](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.8.2...aegisnotify-v0.8.3) (2026-09-14)
+
+
+### Bug Fixes
+
+* **notification:** expose cancel and retry endpoints, close cancellation DB gap ([4a774fe](https://github.com/Exar-lab/AegisNotify/commit/4a774febf38626ede2d20acf8699548c95cb06e2))
+
+## [0.8.2](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.8.1...aegisnotify-v0.8.2) (2026-09-12)
+
+
+### Bug Fixes
+
+* **ci:** allow github-actions[bot] PRs in claude-review ([4c0b5d5](https://github.com/Exar-lab/AegisNotify/commit/4c0b5d5bf0d741b300d3397d89d3837ec6e66132))
+* **ci:** allow github-actions[bot] PRs in claude-review ([7ca987c](https://github.com/Exar-lab/AegisNotify/commit/7ca987cc6b76421f9f1b95317df5b0e0ef6deead))
+* **gateway:** wire cancel, retry, and list routes into scope rules ([144c8a3](https://github.com/Exar-lab/AegisNotify/commit/144c8a3678d27cc1c00b48a1d426addf1d8ca678))
+* **gateway:** wire cancel, retry, and list routes into scope rules ([9d018c0](https://github.com/Exar-lab/AegisNotify/commit/9d018c02c7c69aae93170c72a5117fb890af91d1))
+
+## [0.8.1](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.8.0...aegisnotify-v0.8.1) (2026-09-12)
+
+
+### Bug Fixes
+
+* **ci:** keep show_full_output enabled on claude-review permanently ([c60a494](https://github.com/Exar-lab/AegisNotify/commit/c60a494f95c2775d65c433ada661cd7014be15df))
+* **ci:** keep show_full_output enabled on claude-review permanently ([ed6be83](https://github.com/Exar-lab/AegisNotify/commit/ed6be83df4c4d9c1c5f69ddde4312f0f6ae40758))
+* **ci:** keep show_full_output enabled on claude-review permanently ([#106](https://github.com/Exar-lab/AegisNotify/issues/106)) ([c60a494](https://github.com/Exar-lab/AegisNotify/commit/c60a494f95c2775d65c433ada661cd7014be15df))
+* **ci:** unpin claude-code-action and skip review on fork PRs ([20b9537](https://github.com/Exar-lab/AegisNotify/commit/20b9537a98df2f1f5dce2f5c122fa6b28de438b0))
+* **ci:** unpin claude-code-action and skip review on fork PRs ([35630d5](https://github.com/Exar-lab/AegisNotify/commit/35630d5f2ff59e48a7c0d608213f4b591ed3f8ea))
+
 ## [0.8.0](https://github.com/Exar-lab/AegisNotify/compare/aegisnotify-v0.7.0...aegisnotify-v0.8.0) (2026-09-05)
 
 
